@@ -3,10 +3,12 @@
 This repository contains the deployed runtime bytecode (`bot_runtime.hex`) and its disassembly for
 Ethereum contract `0xbdb3ba9ffe392549e1f8658dd2630c141fdf47b6`. The Foundry test in
 `test/CallbackAuthFork.t.sol` probes the two reported swap-callback entry points using direct calls
-from an unprivileged address on a **local mainnet fork**. Separate test cases keep each callback in
-a fresh transaction (important for EIP-1153 transient storage). The checks reject a decrease in the
-bot's native or tracked ERC-20 balances, an increase in the caller's balances, or a new token
-allowance granted to the caller.
+from an unprivileged address on a **local mainnet fork**. Separate direct-call cases keep each probe
+in a fresh transaction; two additional cases invoke a callback twice in one attacker-controlled
+top-level transaction to test transient-state reuse. The tests emit call success/return-data details,
+native and tracked ERC-20 balance deltas, caller allowance deltas, diffs for persistent slots 0–31,
+observed persistent writes, and the callback's known transient slot. They fail if the bot loses a
+tracked asset or grants the caller a new allowance.
 
 ## Run
 
@@ -16,7 +18,7 @@ put it in this repository or paste it into chat), then run:
 
 ```sh
 export RPC_URL="https://eth-mainnet.g.alchemy.com/v2/${ALCHEMY_API_KEY}"
-forge test --match-path test/CallbackAuthFork.t.sol -vv
+forge test --match-path test/CallbackAuthFork.t.sol -vvvvv
 ```
 
 Alternatively, set `RPC_URL` directly to another Ethereum mainnet endpoint. The endpoint is only
