@@ -126,13 +126,31 @@ contract CallbackAuthForkTest {
         _attempt(_pancakeSelector(), 0, 1, new bytes(0x200), 3);
     }
 
+    // Candidate callback-data layouts: packed address + uint96 (one 32-byte word), and
+    // canonical ABI encoding of a single address. Amount deltas stay at the smallest unit.
+    function test_uni_packedTokenWord_amount0() public {
+        _attempt(_uniSelector(), 1, 0, abi.encodePacked(WETH, uint96(0)), 6);
+    }
+
+    function test_uni_abiEncodedToken_amount0() public {
+        _attempt(_uniSelector(), 1, 0, abi.encode(WETH), 7);
+    }
+
+    function test_pancake_packedTokenWord_amount0() public {
+        _attempt(_pancakeSelector(), 1, 0, abi.encodePacked(WETH, uint96(0)), 8);
+    }
+
+    function test_pancake_abiEncodedToken_amount0() public {
+        _attempt(_pancakeSelector(), 1, 0, abi.encode(WETH), 9);
+    }
+
     /// @notice Attempts to reuse callback transient state across calls in one attacker transaction.
     function test_uni_callbackTwiceInOneTransaction() public {
-        _attemptTwice(_uniSelector(), 1, 0, new bytes(0x200), 4);
+        _attemptTwice(_uniSelector(), 1, 0, abi.encodePacked(WETH, uint96(0)), 4);
     }
 
     function test_pancake_callbackTwiceInOneTransaction() public {
-        _attemptTwice(_pancakeSelector(), 1, 0, new bytes(0x200), 5);
+        _attemptTwice(_pancakeSelector(), 1, 0, abi.encodePacked(WETH, uint96(0)), 5);
     }
 
     function _uniSelector() private pure returns (bytes4) {

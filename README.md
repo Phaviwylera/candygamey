@@ -38,8 +38,16 @@ regression probe, not a proof that every token or every callback payload is safe
   configuration at the chosen fork block, inspect call paths, and establish attacker profit before
   making a report.
 
-The disassembly already contains a relevant guard on the Uniswap selector path: after loading a
-transient-storage value (`TLOAD`), it compares the encoded address against `CALLER` before the
-subsequent token transfer. This is a potential mitigating guard that a source-level finding may
-have missed. The fork probe is intended to test behavior, including the separate Pancake V3 entry
-point, rather than infer safety from the alert text alone.
+The callback dispatcher decodes the standard three-argument shape `(int256, int256, bytes)` and
+checks the dynamic-data bounds before entering the callback body. The disassembly then performs a
+`TLOAD`-based comparison before the token transfer path (`transfer(address,uint256)`). The expanded
+probes now include two candidate 32-byte callback-data layouts for WETH: packed `address + uint96`
+and canonical `abi.encode(address)`. The packed layout is repeated twice in one attacker-controlled
+top-level transaction to exercise any transient-state change between attempts. These are decoder-
+informed candidates, not a claim that either is the contract's intended callback schema; inspect the
+new `-vvvvv` traces to see whether each reaches the guard, token call, or revert path.
+
+The transient key sampled by the test is the 32-byte constant loaded via `CODECOPY` immediately
+before the callback `TLOAD`/`TSTORE` sequence. Other code paths use separate transient keys, so do
+not conflate those with this callback slot. The fork probe is intended to test behavior, including
+the separate Pancake V3 entry point, rather than infer safety from the alert text alone.
