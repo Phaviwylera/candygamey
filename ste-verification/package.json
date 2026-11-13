@@ -1,0 +1,19 @@
+{
+  "name": "ste-reentrancy-verification",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Byte-exact verification of the STE reentrancy finding 0x792f5bdde5f8cf4b075b7a9dc4f296341d00b0d1",
+  "scripts": {
+    "compile": "node scripts/compile_ste.js",
+    "test": "node scripts/reentrancy_suite.js",
+    "reasons": "node scripts/revert_reason.js",
+    "economics": "node scripts/economics.js"
+  },
+  "dependencies": {
+    "@ethereumjs/common": "4.4.0",
+    "@ethereumjs/util": "9.1.0",
+    "@ethereumjs/vm": "8.1.1",
+    "ethers": "6.17.0",
+    "solc": "npm:solc@0.8.0"
+  }
+}
