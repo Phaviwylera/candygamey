@@ -1,0 +1,75 @@
+{
+  "target": "0x8f7a45ebde059392e46a46dcc14ab24681a961ea",
+  "runtimeHash": "0xf1d9fa6b876a53c7dd0e11963876dd83ee4d6cb29d9e80e307002a5d6154cc61",
+  "rows": [
+    {
+      "variant": "attackCached",
+      "depth": "1",
+      "attackOk": true,
+      "attempts": "1",
+      "successes": "0",
+      "reverted": "1",
+      "received": "4512499999999999999",
+      "tokensAfter": "0",
+      "totalWithdrawalsSeenInsideCallback": "9737500000000000000",
+      "eoaDelta": "-5000000000000000000",
+      "contractDelta": "4512499999999999999",
+      "attackerNetWei": "-487500000000000001",
+      "steEthDelta": "487500000000000001",
+      "verdict": "NO PROFIT"
+    },
+    {
+      "variant": "attackCached",
+      "depth": "7",
+      "attackOk": true,
+      "attempts": "1",
+      "successes": "0",
+      "reverted": "1",
+      "received": "4512499999999999999",
+      "tokensAfter": "0",
+      "totalWithdrawalsSeenInsideCallback": "14249999999999999999",
+      "eoaDelta": "-5000000000000000000",
+      "contractDelta": "4512499999999999999",
+      "attackerNetWei": "-487500000000000001",
+      "steEthDelta": "487500000000000001",
+      "verdict": "NO PROFIT"
+    },
+    {
+      "variant": "attackLive",
+      "depth": "1",
+      "attackOk": true,
+      "attempts": "1",
+      "successes": "1",
+      "reverted": "0",
+      "received": "4512499999999999999",
+      "tokensAfter": "0",
+      "totalWithdrawalsSeenInsideCallback": "18762499999999999998",
+      "eoaDelta": "-5000000000000000000",
+      "contractDelta": "4512499999999999999",
+      "attackerNetWei": "-487500000000000001",
+      "steEthDelta": "487500000000000001",
+      "verdict": "NO PROFIT"
+    },
+    {
+      "variant": "attackLive",
+      "depth": "7",
+      "attackOk": true,
+      "attempts": "7",
+      "successes": "7",
+      "reverted": "0",
+      "received": "4512499999999999999",
+      "tokensAfter": "0",
+      "totalWithdrawalsSeenInsideCallback": "23274999999999999997",
+      "eoaDelta": "-5000000000000000000",
+      "contractDelta": "4512499999999999999",
+      "attackerNetWei": "-487500000000000001",
+      "steEthDelta": "487500000000000001",
+      "verdict": "NO PROFIT"
+    },
+    {
+      "check": "double withdraw with same tokens",
+      "tokensAfterFirst": "0",
+      "verdict": "IMPOSSIBLE (burned)"
+    }
+  ]
+}
