@@ -1,0 +1,19 @@
+{
+  "name": "mevweth-payload-check",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Local-EVM payload verification for MevWeth 0x00000000008C43efC014746c230049e330039Cb3",
+  "scripts": {
+    "compile": "node compile.js && node compile_helpers.js",
+    "check": "node payload_suite.js",
+    "reasons": "node revert_reasons.js"
+  },
+  "dependencies": {
+    "@ethereumjs/common": "4.4.0",
+    "@ethereumjs/util": "9.1.0",
+    "@ethereumjs/vm": "8.1.1",
+    "ethers": "6.17.0",
+    "solc": "0.7.6",
+    "solc8": "npm:solc@0.8.28"
+  }
+}
