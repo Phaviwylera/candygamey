@@ -1,0 +1,27 @@
+{
+  "bridge": "0x15452ec016c4dc8c549e7fe6ff4b26324ea8b7a4",
+  "rows": [
+    {
+      "payload": "A literal scanner payload",
+      "accepted": false,
+      "attackerDelta": "0",
+      "verdict": "BLOCKED"
+    },
+    {
+      "payload": "B forged proof vs honest root",
+      "accepted": false,
+      "attackerDelta": "0",
+      "verdict": "BLOCKED"
+    },
+    {
+      "check": "destinationAddress committed in leaf",
+      "identical": false
+    },
+    {
+      "check": "legit claim then nullifier replay",
+      "firstAccepted": true,
+      "secondReverted": true,
+      "replaySelector": "0xe0417cec"
+    }
+  ]
+}

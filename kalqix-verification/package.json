@@ -1,0 +1,16 @@
+{
+  "name": "kalqix-claimasset-verification",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Payload verification for the KalqiX claimAsset arbitrary-recipient claim",
+  "scripts": {
+    "test": "node scripts/claim_suite.js"
+  },
+  "dependencies": {
+    "@ethereumjs/common": "4.4.0",
+    "@ethereumjs/util": "9.1.0",
+    "@ethereumjs/vm": "8.1.1",
+    "ethers": "6.17.0",
+    "solc": "npm:solc@0.8.30"
+  }
+}
